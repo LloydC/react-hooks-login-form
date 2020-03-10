@@ -16,7 +16,8 @@ function App() {
   useEffect(()=>{
     console.log('render counts')
     updateMounted('mounted')
-  }, [])
+    return () => console.log('cleanup called')// happens only if the component is unmounted
+  }, [mounted])
 
   return (
     <div className="App">
