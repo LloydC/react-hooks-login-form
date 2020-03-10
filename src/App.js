@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, {useEffect, useState, useReducer, formReducer} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,7 +9,14 @@ function App() {
     (state, newState) => ({...state, ...newState}), {username:'', password:''}
   )
 
+  const [mounted, updateMounted] = useState('stale');
+
   const {username, password} = state;
+
+  useEffect(()=>{
+    console.log('render counts')
+    updateMounted('mounted')
+  }, [])
 
   return (
     <div className="App">
@@ -23,6 +30,7 @@ function App() {
       </div>
       
       <div className="right-pane">
+        {mounted && <p> Mounted: {mounted}</p>}
         {username && <p> Username: {username}</p>}
         {password && <p>Password: {password}</p>}
       </div>
